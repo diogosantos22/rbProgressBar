@@ -11,5 +11,6 @@ Just a simple FiveM progress bar.
 
 ## 🤖 Code
 
--- time in ms \n
 exports["rbProgressBar"]:start(time, text)
+
+ps: time is in ms
