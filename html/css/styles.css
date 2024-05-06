@@ -1,0 +1,79 @@
+@import url('satoshi.css');
+
+
+:root {
+    --primary: #FF9E2D;
+    --secondary: #FF8A00;
+
+    /* --primary: #2CA6FF;
+    --secondary: #0094FF; */
+}
+
+body {
+    font-family: 'Satoshi-Black';
+    color: white;
+    /* color: black; */
+}
+
+#main {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #1b1b1b86;
+    /* display: block; */
+    opacity: 0%;
+
+    /* height: 100px; */
+    width: 300px;
+    border-radius: 18px;
+    height: fit-content;
+    /* padding: 3px; */
+
+}
+
+#text {
+    text-align: center;
+
+    margin: 5px;
+}
+
+#width {
+    overflow: hidden;
+    border-radius: 18px;
+
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+
+    /* transition: "background-image 2s linear"; */
+    margin: 5px;
+    /* box-sizing: border-box; */
+    width: 1px;
+    max-width: calc(100% - 10px);
+    height: 26px;
+    z-index: 1;
+
+    text-align: right;
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+    /* margin-right: 5px; */
+}
+
+
+#width > span {
+    margin-right: 10px;
+}
+
+/* 
+
+    4 cores
+    background:
+        linear-gradient(#0094FF,#0094FF)   left/calc(100% - 240px) 100%,
+        linear-gradient(#2CA6FF,#2CA6FF)   left/calc(100% - 145px) 100%,
+        linear-gradient(#FF8A00,#FF8A00)   left/calc(100% - 72.5px) 100%,
+        #FF9E2D;
+*/

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    
+    <div id="main">
+        <div id="text"></div>
+        <div id="width">
+            <span></span>
+        </div>
+    </div>
+    
+    <script>
+        let showPercentage = true;
+
+        let main = document.getElementById("main")
+        let text = document.getElementById("text")
+        let width = document.getElementById("width")
+        let widthText = width.getElementsByTagName("span")[0]
+        
+        function updateProgressBar(percentage) {
+            width.style.width = percentage + '%';
+
+            if (showPercentage) {
+                widthText.innerHTML = percentage + '%';
+            }
+        }
+
+        function start(data) {
+            main.style.opacity = "100%";
+            // main.style.transition = `opacity 0.5s`;
+
+            main.style.display = "block";
+            width.style.width = "0px";
+
+            if (data.text) {
+                text.innerHTML = data.text.toUpperCase();
+            }
+
+            // width.style.width = "290px";
+            width.style.transition = `width 150ms`;
+
+            const duration = parseInt(data.time, 10); 
+
+            let currentProgress = 0;
+
+            const progressInterval = setInterval(() => {
+                updateProgressBar(currentProgress);
+                currentProgress += 1;
+                
+                // if (currentProgress > 5) {
+                if (currentProgress > 100) {
+                    close()
+                    clearInterval(progressInterval);
+                }
+            }, duration * 1000 / 100);
+            
+            // setTimeout(function() {
+            //     main.style.opacity = "0%";
+
+            //     close()
+            // }, data.time * 1000)
+        }
+
+
+        // start({
+        //     text: "boas parceirão",
+        //     time: 5,
+        // })
+
+        function close() {
+            main.style.opacity = "0%";
+
+            width.style.width = "0px";
+            width.style.transition = `width 0s`;
+        }
+
+        function config(data) {
+            showPercentage = data.showPercentage == true;
+
+
+            document.documentElement.style.setProperty('--primary', data.theme.first);
+            document.documentElement.style.setProperty('--secondary', data.theme.second);
+        }
+
+        window.onload = function() {
+            fetch(`https://${GetParentResourceName()}/ready`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify({})
+            });
+        }
+
+        window.addEventListener('message', function(event) {
+            var action = event.data.action;
+            var data = event.data.data;
+
+            switch (action) {
+                case "start":
+                    start(data);
+                    break;
+
+                case "close":
+                    close();
+                    break;
+            
+                case "config":
+                    config(data);
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+
+    </script>
+</body>
+
+</html>
